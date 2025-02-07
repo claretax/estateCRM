@@ -4,7 +4,7 @@ import { DataContext } from '../context/DataContext';
 
 const FollowUpForm = () => {
 
-  const {scriptURL} = useContext(DataContext);
+  const {scriptURL, brokers, userID} = useContext(DataContext);
 
   const [formData, setFormData] = useState({
     clientName: '',
@@ -21,6 +21,22 @@ const FollowUpForm = () => {
 
   const [message, setMessage] = useState('');
   const [isError, setIsError] = useState(false);
+  const [suggestions, setSuggestions] = useState([]);
+  const [showSuggestions, setShowSuggestions] = useState(false); 
+  const [suggestion, setSuggestion] = useState('');
+
+  //   const brokerIDs = [
+  //   "B123",
+  //   "B456",
+  //   "B789",
+  //   "B101",
+  //   "B112",
+  //   "B131",
+  //   "B415",
+  //   "B161",
+  //   "B718",
+  //   "B192"
+  // ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -28,7 +44,32 @@ const FollowUpForm = () => {
       ...prev,
       [name]: value
     }));
+
+    // Handle suggestions for brokerID
+    if (name === 'brokerID') {      
+      const filteredSuggestions = brokers.filter(broker =>
+       broker.ID.toString().includes(value) || broker.BrokerName.toLowerCase().includes(value.toLowerCase()) || broker.Phone.toString().includes(value)
+        );
+      // console.log(filteredSuggestions);
+      
+      setSuggestions(filteredSuggestions);
+      setShowSuggestions(filteredSuggestions.length > 0);
+    } else {
+      setShowSuggestions(false);
+    }
   };
+
+
+  const handleSuggestionClick = (suggestion) => {
+    setSuggestion(suggestion);
+    setFormData(prev => ({
+      ...prev,
+      brokerID: suggestion.ID
+    }));
+    setShowSuggestions(false);
+  };
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -148,14 +189,32 @@ const FollowUpForm = () => {
 
         <div className={styles["form-group"]}>
           <label>
-            Broker ID:
+            Broker ID: {suggestion && `${suggestion.BrokerName} (${suggestion.Phone})`}
             <input
               type="text"
               name="brokerID"
               value={formData.brokerID}
               onChange={handleChange}
+              // onFocus={() => setShowSuggestions(true)
+              // }
+              // onBlur={() => setShowSuggestions(false)}
             />
           </label>
+
+          {showSuggestions && (
+            <div className={styles.suggestions}>
+              {suggestions.map((suggestion, index) => (
+                <div
+                  key={index}
+                  className={styles["suggestion-item"]}
+                  onClick={() => handleSuggestionClick(suggestion)}
+                >
+                  {suggestion.BrokerName+` (${suggestion.Phone})`}
+                </div>
+              ))}
+            </div>
+          )}
+
         </div>
 
         <div className={styles["form-group"]}>
@@ -191,8 +250,9 @@ const FollowUpForm = () => {
             <input
               type="text"
               name="hostID"
-              value={formData.hostID}
+              value={userID}
               onChange={handleChange}
+              readOnly
             />
           </label>
         </div>
