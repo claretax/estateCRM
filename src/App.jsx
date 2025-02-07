@@ -12,7 +12,7 @@ import Dashboard from './pages/Dashboard';
 function App() {
   return (
     <div>
-    <BrowserRouter>
+    <BrowserRouter basename="/estateCRM/">
     <Navbar />
       <Routes>
         <Route path='/' element= { <Dashboard /> } />
