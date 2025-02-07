@@ -13,7 +13,7 @@ function Navbar(){
                     <li><NavLink to="/">Dashboard</NavLink></li>
                     <li><NavLink to="/followups">Followups</NavLink></li>
                     <li><NavLink to="/visits">Visits</NavLink></li>
-                    <li><NavLink to="/about">About</NavLink></li>
+                    <li><NavLink to="/brokers">Brokers</NavLink></li>
                 </ul>
             </div>
         </nav>
