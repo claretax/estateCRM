@@ -1,0 +1,40 @@
+.container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 100%;
+    overflow-x: hidden;
+    padding: 10px;
+    position: sticky;
+    top: 0px;
+}
+ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  ul a{
+    text-decoration: none;
+    background-color: rgb(51, 233, 133);
+    padding: 10px 20px;
+    border-radius: 10px;
+    color: white;
+    transition: 0.3s;
+    
+  }
+  .logo{
+    width: auto;
+  }
+  @media (max-width: 600px) {
+    ul {
+        gap: 5px;
+    }
+
+    ul a {
+        padding: 8px 15px; /* Adjust padding for smaller screens */
+        font-size: 1rem; /* Adjust font size for smaller screens */
+    }
+}

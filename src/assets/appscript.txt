@@ -1,0 +1,126 @@
+const doGet = (e) => handleRequest(e);
+const doPost = (e) => handleRequest(e);
+
+function handleRequest(e) {
+  const { parameter, postData, method } = e;
+  const action = parameter.action;
+
+  let result;
+  try {
+    switch(action) {
+      case 'createFollowup':
+        result = createFollowup(JSON.parse(postData.contents));
+        break;
+      case 'getFollowups':
+        result = getFollowups(parameter);
+        break;
+      case 'createVisit':
+        result = createVisit(JSON.parse(postData.contents));
+        break;
+      case 'getVisits':
+        result = getVisits(parameter);
+        break;
+      default:
+        throw new Error('Invalid action');
+    }
+    return ContentService.createTextOutput(JSON.stringify(result))
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({
+      error: error.message
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// Followup CRUD Operations
+function createFollowup(data) {
+  const sheet = SpreadsheetApp.getActive().getSheetByName('Followups');
+  const id = Utilities.getUuid();
+  
+  const newRow = [
+    id,
+    data.clientName,
+    data.phone,
+    data.interestedIn,
+    data.note,
+    data.brokerID || '',
+    data.scheduledDate,
+    data.clientEmail || '',
+    data.propertyID || '',
+    data.status || 'pending',
+    new Date().toISOString(),
+    data.hostID || ''
+  ];
+  
+  sheet.appendRow(newRow);
+  return { id, message: 'Followup created successfully' };
+}
+
+function getFollowups(params) {
+  const sheet = SpreadsheetApp.getActive().getSheetByName('Followups');
+  const data = sheet.getDataRange().getValues();
+  const headers = data.shift();
+  
+  return data.map(row => {
+    const obj = {};
+    headers.forEach((header, index) => {
+      obj[header] = row[index];
+    });
+    return obj;
+  });
+}
+
+// Visit CRUD Operations
+function createVisit(data) {
+  const sheet = SpreadsheetApp.getActive().getSheetByName('Visits');
+  const id = Utilities.getUuid();
+  
+  const newRow = [
+    id,
+    data.clientName,
+    data.phone,
+    data.interestedIn,
+    data.note,
+    data.brokerID || '',
+    data.scheduledDate,
+    data.clientEmail || '',
+    data.propertyID || '',
+    data.status || 'scheduled',
+    new Date().toISOString(),
+    data.hostID || ''
+  ];
+  
+  sheet.appendRow(newRow);
+  return { id, message: 'Visit scheduled successfully' };
+}
+
+function getVisits(params) {
+  const sheet = SpreadsheetApp.getActive().getSheetByName('Visits');
+  const data = sheet.getDataRange().getValues();
+  const headers = data.shift();
+  
+  return data.map(row => {
+    const obj = {};
+    headers.forEach((header, index) => {
+      obj[header] = row[index];
+    });
+    return obj;
+  });
+}
+
+function test(){
+  const mockTest = {
+    action: 'createFollowup',
+    clientName: 'John Doe',
+    phone: '1234567890',
+    interestedIn: 'Apartment',
+    note: 'Test note',
+  }
+  var params = {parameter: mockTest}
+  var result = doGet(params)
+  console.log(result.getContent())
+}
+
+
+
+

@@ -1,0 +1,71 @@
+/* Table Container */
+.table .container {
+    overflow-x: auto; /* Allows horizontal scrolling if needed */
+}
+
+/* Table Styles */
+table {
+    width: 100%; /* Full width */
+    border-collapse: collapse; /* Merge borders */
+    margin: 20px 0; /* Margin around the table */
+    font-family: Arial, sans-serif; /* Font style */
+    table-layout: auto; /* Adjust layout for responsiveness */
+}
+
+/* Table Header Styles */
+th {
+    background-color: #4CAF50; /* Green background */
+    color: white; /* White text */
+    padding: 12px; /* Padding inside header cells */
+    text-align: left; /* Align text to the left */
+}
+
+/* Table Data Cell Styles */
+td {
+    border: 1px solid #ddd; /* Light gray border */
+    padding: 8px; /* Padding inside data cells */
+}
+
+/* Row Hover Effect */
+tr:hover {
+    background-color: #f1f1f1; /* Light gray background on hover */
+}
+
+/* Alternate Row Colors */
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* Light gray for even rows */
+}
+.addBtn{
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 50%;
+    height: 50px;
+    width: 50px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 44px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    font-weight: 900;
+}
+
+/* Responsive Table */
+@media screen and (max-width: 600px) {
+    table {
+        width: 100%; /* Full width on small screens */
+        display: block; /* Make table block for better responsiveness */
+        overflow-x: auto; /* Allow horizontal scrolling */
+        white-space: nowrap; /* Prevent text from wrapping */
+    }
+    th, td {
+        /* display: block; Stack cells vertically */
+        width: 100%; /* Full width for each cell */
+    }
+}
