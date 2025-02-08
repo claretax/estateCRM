@@ -159,7 +159,7 @@ const Dashboard = () => {
           headers={["Client Name", "Phone", "Interested In"]}
           keys={["ClientName", "Phone", "InterestedIn"]}
           data={followUps.slice(-5)}
-          createAction={'createFollowup'}
+          createAction={'updateFollowup'}
           setData={setFollowUps}
         />
 
@@ -168,7 +168,7 @@ const Dashboard = () => {
           headers={["Client Name", "Phone", "Interested In"]}
           keys={["ClientName", "Phone", "InterestedIn"]}
           data={visits.slice(-5)}
-          createAction={'createVisit'}
+          createAction={'updateVisit'}
           setData={setVisits}
         />
       </>
