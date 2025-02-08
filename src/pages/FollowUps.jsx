@@ -5,7 +5,7 @@ import DataTable from '../components/DataTable';
 import styles from '../assets/css/table.module.css';
 
 export default function FollowUps() {
-    const { followUps } = useContext(DataContext);
+    const { followUps, setFollowUps } = useContext(DataContext);
 
     return (
         <div>
@@ -13,9 +13,11 @@ export default function FollowUps() {
             <h1>Follow Ups</h1>
             <NavLink to={'/followups/add'} className={styles.addBtn}>+</NavLink>
             <DataTable 
-                headers={['Client Name', 'Phone', 'Interested In']} 
-                keys={['ClientName', 'Phone', 'InterestedIn']} 
+                headers={['Client Name', 'Phone', 'Interested In', 'Note']} 
+                keys={['ClientName', 'Phone', 'InterestedIn', 'Note']} 
                 data={followUps} 
+                createAction={'createFollowup'}
+                setData={setFollowUps}
             />
         </div>
     );

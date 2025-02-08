@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { FaWhatsapp, FaPhone } from 'react-icons/fa'; // Importing icons
 import styles from '../assets/css/table.module.css';
 import formStyles from '../assets/css/form.module.css';
 import { NavLink } from 'react-router-dom';
 import Modal from 'react-modal';
+import { DataContext } from '../context/DataContext';
 
 // Set the app element for accessibility
 Modal.setAppElement('#root');
 
-const DataTable = ({ headers, keys, data, setData }) => {
+const DataTable = ({ headers, keys, data, createAction, setData }) => {
+    const { scriptURL } = useContext(DataContext);
+
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
     const [formData, setFormData] = useState({});
+
+      const [message, setMessage] = useState('');
+      const [isError, setIsError] = useState(false);
 
     const handleEditClick = (index) => {
         setEditingIndex(index);
@@ -24,11 +30,34 @@ const DataTable = ({ headers, keys, data, setData }) => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleSaveClick = () => {
+    const handleSaveClick = async( e) => {
+        e.preventDefault()
+        setIsError(false);
+        setMessage('');       
+
         const updatedData = [...data];
+        // console.log('formData',formData);
         updatedData[editingIndex] = formData;
-        setData(updatedData); // Update the parent state
-        closeModal();
+        // console.log('editingIndex',updatedData[editingIndex],editingIndex);
+        
+        try {
+            const params = new URLSearchParams(formData).toString();
+        const response = await fetch(
+            `${scriptURL}?action=${createAction}&${params}`,
+          );
+          const result = await response.json();
+          if (result.id) {
+            setData(updatedData);
+            setModalIsOpen(false);
+            setMessage('Data saved successfully');
+            closeModal();
+            } else {
+            setIsError(true);
+            setMessage(result.message || 'Failed to save data');
+            }
+        } catch (error) {
+            
+        }
     };
 
     const closeModal = () => {
@@ -39,6 +68,7 @@ const DataTable = ({ headers, keys, data, setData }) => {
 
     return (
         <div>
+            {message && <p className={isError ? formStyles.error : formStyles.success}>{message}</p>}
             <table className={styles.table}>
                 <thead>
                     <tr>
@@ -52,7 +82,7 @@ const DataTable = ({ headers, keys, data, setData }) => {
                     {data.map((row, index) => (
                         <tr key={index}>
                             {keys.map((key, cellIndex) => (
-                                <td key={cellIndex} onDoubleClick={() => handleEditClick(cellIndex)}>{row[key]}</td>
+                                <td key={cellIndex} onDoubleClick={() => handleEditClick(index)}>{row[key]}</td>
                             ))}
                             <td>
                                 {/* <button onClick={() => handleEditClick(index)}>Edit</button> */}

@@ -5,7 +5,7 @@ import { DataContext } from "../context/DataContext";
 import DataTable from "../components/DataTable";
 
 const Dashboard = () => {
-  const { followUps, visits, brokers } = React.useContext(DataContext);
+  const { followUps, visits, brokers, setFollowUps, setVisits, setBrokers } = React.useContext(DataContext);
   const [selectedData, setSelectedData] = useState([]);
   const [dataType, setDataType] = useState("");
   const [isDashboardVisible, setIsDashboardVisible] = useState(true);
@@ -159,6 +159,8 @@ const Dashboard = () => {
           headers={["Client Name", "Phone", "Interested In"]}
           keys={["ClientName", "Phone", "InterestedIn"]}
           data={followUps.slice(-5)}
+          createAction={'createFollowup'}
+          setData={setFollowUps}
         />
 
         <h2>Visits</h2>
@@ -166,6 +168,8 @@ const Dashboard = () => {
           headers={["Client Name", "Phone", "Interested In"]}
           keys={["ClientName", "Phone", "InterestedIn"]}
           data={visits.slice(-5)}
+          createAction={'createVisit'}
+          setData={setVisits}
         />
       </>
       ):

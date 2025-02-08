@@ -46,7 +46,7 @@ export const DataProvider = ({ children }) => {
     }, []);
 
     return (
-        <DataContext.Provider value={{ followUps, visits, brokers, scriptURL, userID }}>
+        <DataContext.Provider value={{ followUps, visits, brokers, setFollowUps, setBrokers, setVisits, scriptURL, userID }}>
             {children}
         </DataContext.Provider>
     );
