@@ -57,6 +57,19 @@ background-color: #f0f0f0;
   background-color: #45a049;
 }
 
+.cancelBtn {
+  background-color: #e04242;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+.cancelBtn:hover {
+  background-color: #d62414;
+}
+
 .message {
   margin-top: 15px;
   padding: 10px;
