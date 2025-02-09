@@ -38,24 +38,32 @@ const Dashboard = () => {
       setCreateAction('updateFollowup')
     } else if (type === "closedFollowUps") {
       setSelectedData(followUps.filter((f) => f.Status === "Closed"));
+      setCreateAction('updateFollowup')
     } else if (type === "recommendedFollowUps") {
       setSelectedData(
         followUps.filter((f) => new Date(f.ScheduledDate) <= today)
       );
+      setCreateAction('updateFollowup')
     } else if(type === 'totalFollowUps'){
       setSelectedData(followUps)
+      setCreateAction('updateFollowup')
     }else if (type === "openVisits") {
       setSelectedData(visits.filter((v) => v.Status === "Open"));
+      setCreateAction('updateVisit')
     } else if (type === "closedVisits") {
       setSelectedData(visits.filter((v) => v.Status === "Closed"));
+      setCreateAction('updateVisit')
     } else if (type === "recommendedVisits") {
       setSelectedData(visits.filter((f) => new Date(f.ScheduledDate) <= today));
+      setCreateAction('updateVisit')
     } else if (type === 'totalVisits'){
         setSelectedData(visits)
+        setCreateAction('updateVisit')
     } else if (type === 'brokers'){
       setSelectedData(brokers)
       setTableHeaders(['Name', 'Phone', 'Note'])
       setTableKeys(['BrokerName', 'Phone', "Note"])
+      setCreateAction('createBroker')
   }
   };
 
