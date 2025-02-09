@@ -124,7 +124,7 @@ const FollowUpForm = () => {
           <label>
             Scheduled Date*:
             <input
-              type="datetime-local"
+              type="date"
               name="scheduledDate"
               value={formData.scheduledDate}
               onChange={handleChange}
