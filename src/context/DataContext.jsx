@@ -7,7 +7,7 @@ export const DataProvider = ({ children }) => {
     const [visits, setVisits] = useState([]);
     const [brokers, setBrokers] = useState([]);
 
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbzdjAHXq1EABvjJfzd1fde4UNBUQO15WJkoXOGSguuUz0K4_tgyM8ak1drw1pxGd7lXxg/exec'
+    const scriptURL = 'https://script.google.com/macros/s/AKfycbwEd69lvFyF50SM0pBTPZ9bPi_UHhVXnHHpMUG5QcAPO_ZYZvpAuIMhavtBEG1EumKwKw/exec'
     const userID = 'USER123';
 
     useEffect(() => {

@@ -5,7 +5,7 @@ import DataTable from '../components/DataTable';
 import styles from '../assets/css/table.module.css';
 
 export default function Visits() {
-    const { visits } = useContext(DataContext);
+    const { visits, setVisits } = useContext(DataContext);
 
     return (
         <div>
@@ -16,6 +16,8 @@ export default function Visits() {
                 headers={['Client Name', 'Phone', 'Interested In']} 
                 keys={['ClientName', 'Phone', 'InterestedIn']} 
                 data={visits} 
+                createAction={'updateVisit'}
+                setData={setVisits}
             />
         </div>
     );

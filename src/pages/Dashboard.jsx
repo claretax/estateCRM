@@ -11,6 +11,7 @@ const Dashboard = () => {
   const [isDashboardVisible, setIsDashboardVisible] = useState(true);
   const [tableHeaders, setTableHeaders] = useState(["Client Name", "Phone", "Interested In", "Note"]);
   const [tableKeys, setTableKeys] = useState(["ClientName", "Phone", "InterestedIn", "Note"]);
+  const [createAction, setCreateAction] = useState('');
 
 
   // Calculate open and closed counts for follow-ups and visits
@@ -34,6 +35,7 @@ const Dashboard = () => {
     setIsDashboardVisible(false)
     if (type === "openFollowUps") {
       setSelectedData(followUps.filter((f) => f.Status === "Open"));
+      setCreateAction('updateFollowup')
     } else if (type === "closedFollowUps") {
       setSelectedData(followUps.filter((f) => f.Status === "Closed"));
     } else if (type === "recommendedFollowUps") {
@@ -156,8 +158,8 @@ const Dashboard = () => {
 
         <h2>Follow Ups</h2>
         <DataTable
-          headers={["Client Name", "Phone", "Interested In"]}
-          keys={["ClientName", "Phone", "InterestedIn"]}
+          headers={["Client Name", "Phone", "Interested In", "Note", 'Broker ID']}
+          keys={["ClientName", "Phone", "InterestedIn", "Note", "BrokerID"]}
           data={followUps.slice(-5)}
           createAction={'updateFollowup'}
           setData={setFollowUps}
@@ -165,8 +167,8 @@ const Dashboard = () => {
 
         <h2>Visits</h2>
         <DataTable
-          headers={["Client Name", "Phone", "Interested In"]}
-          keys={["ClientName", "Phone", "InterestedIn"]}
+          headers={["Client Name", "Phone", "Interested In", 'Note', 'Broker ID']}
+          keys={["ClientName", "Phone", "InterestedIn", 'Note', 'BrokerID']}
           data={visits.slice(-5)}
           createAction={'updateVisit'}
           setData={setVisits}
@@ -184,6 +186,8 @@ const Dashboard = () => {
               headers={tableHeaders}
               keys={tableKeys}
               data={selectedData}
+              setData={createAction === 'updateVisit' ? setVisits : createAction === 'updateBroker' ? setBrokers : setFollowUps}
+              createAction={createAction}
             />
           </div>
       )}

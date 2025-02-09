@@ -5,7 +5,7 @@ import DataTable from '../components/DataTable';
 import styles from '../assets/css/table.module.css';
 
 export default function Brokers() {
-    const { brokers } = useContext(DataContext);
+    const { brokers, setBrokers } = useContext(DataContext);
 
     return (
         <div>
@@ -16,6 +16,8 @@ export default function Brokers() {
                 headers={['Broker Name', 'Phone', 'Note']} 
                 keys={['BrokerName', 'Phone', 'Note']} 
                 data={brokers} 
+                createAction={'updateBroker'}
+                setData={setBrokers}
             />
         </div>
     );

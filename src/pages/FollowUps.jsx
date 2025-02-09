@@ -13,10 +13,10 @@ export default function FollowUps() {
             <h1>Follow Ups</h1>
             <NavLink to={'/followups/add'} className={styles.addBtn}>+</NavLink>
             <DataTable 
-                headers={['Client Name', 'Phone', 'Interested In', 'Note']} 
+                headers={['Client Name', 'Phone', 'Interested In', 'Note', 'Br']} 
                 keys={['ClientName', 'Phone', 'InterestedIn', 'Note']} 
                 data={followUps} 
-                createAction={'createFollowup'}
+                createAction={'updateFollowup'}
                 setData={setFollowUps}
             />
         </div>
