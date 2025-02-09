@@ -43,7 +43,7 @@ function App() {
         <Route path='/brokers' element={ <Brokers /> } >
             <Route path='add' element={ <BrokerForm /> }></Route>
         </Route>
-        {/* <Route path='/test' element={ <BrokerForm /> }></Route> */}
+        <Route path='/test' element={ <BrokerForm /> }></Route>
       </Routes>
     </BrowserRouter>
     </div>
