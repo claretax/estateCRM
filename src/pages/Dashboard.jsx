@@ -9,11 +9,10 @@ const Dashboard = () => {
   const [selectedData, setSelectedData] = useState([]);
   const [dataType, setDataType] = useState("");
   const [isDashboardVisible, setIsDashboardVisible] = useState(true);
-  const [tableHeaders, setTableHeaders] = useState(["Client Name", "Phone", "Interested In", "Note", "scheduledDate"]);
-  const [tableKeys, setTableKeys] = useState(["ClientName", "Phone", "InterestedIn", "Note", "scheduledDate"]);
+  const [tableHeaders, setTableHeaders] = useState(["Client Name", "Phone", "Interested In", "Note", "Scheduled Date"]);
+  const [tableKeys, setTableKeys] = useState(["ClientName", "Phone", "InterestedIn", "Note", "ScheduledDate"]);
   const [createAction, setCreateAction] = useState('');
 
-  
   // Calculate open and closed counts for follow-ups and visits
   const today = new Date();
   const openFollowUps = followUps.filter((f) => f.Status === "Open").length;
