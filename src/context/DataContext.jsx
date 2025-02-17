@@ -10,12 +10,26 @@ export const DataProvider = ({ children }) => {
     const scriptURL = 'https://script.google.com/macros/s/AKfycbwEd69lvFyF50SM0pBTPZ9bPi_UHhVXnHHpMUG5QcAPO_ZYZvpAuIMhavtBEG1EumKwKw/exec'
     const userID = 'USER123';
 
+    // Utility function to format ISO date to dd/mm/yyyy
+    const formatDate = (isoString) => {
+        const date = new Date(isoString);
+        const day = String(date.getUTCDate()).padStart(2, '0');
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+        const year = date.getUTCFullYear();
+        return `${day}/${month}/${year}`;
+    };
+
     useEffect(() => {
         const fetchFollowUps = async () => {
             try {
                 const response = await fetch(`${scriptURL}?action=getFollowups`);
                 const data = await response.json();
-                setFollowUps(data);
+                // Format dates before setting state
+                const formattedData = data.map(item => ({
+                    ...item,
+                    ScheduledDate: formatDate(item.ScheduledDate)
+                }));
+                setFollowUps(formattedData);
             } catch (error) {
                 console.error('Error fetching follow-ups:', error);
             }
@@ -25,11 +39,17 @@ export const DataProvider = ({ children }) => {
             try {
                 const response = await fetch(`${scriptURL}?action=getVisits`);
                 const data = await response.json();
-                setVisits(data);
+                // Format dates if visits also have ScheduledDate
+                const formattedData = data.map(item => ({
+                    ...item,
+                    ScheduledDate: formatDate(item.ScheduledDate)
+                }));
+                setVisits(formattedData);
             } catch (error) {
                 console.error('Error fetching visits:', error);
             }
         };
+
         const fetchBrokers = async () => {
             try {
                 const response = await fetch(`${scriptURL}?action=getBrokers`);
@@ -42,7 +62,7 @@ export const DataProvider = ({ children }) => {
 
         fetchFollowUps();
         fetchVisits();
-        fetchBrokers()
+        fetchBrokers();
     }, []);
 
     return (
