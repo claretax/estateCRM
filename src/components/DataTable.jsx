@@ -109,12 +109,22 @@ const DataTable = ({ headers, keys, data, createAction, setData }) => {
                     {keys.map((key) => (
                         <div key={key}>
                             <label>{key.charAt(0).toUpperCase() + key.slice(1)}:</label>
-                            <input
-                                type="text"
-                                name={key}
-                                value={formData[key] || ''}
-                                onChange={handleInputChange}
-                            />
+                            {key.toLowerCase().includes('date') ? (
+                        <input
+                            type="date"
+                            name={key}
+                            value={formData[key] || ''}
+                            onChange={handleInputChange}
+                        />
+                    ) : (
+                        <input
+                            type="text"
+                            name={key}
+                            value={formData[key] || ''}
+                            onChange={handleInputChange}
+                        />
+                    )}
+                            
                         </div>
                     ))}
                     <button type="button" onClick={handleSaveClick} className={formStyles.submitBtn} >Save</button>
