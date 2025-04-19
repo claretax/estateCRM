@@ -9,8 +9,8 @@ const Dashboard = () => {
   const [selectedData, setSelectedData] = useState([]);
   const [dataType, setDataType] = useState("");
   const [isDashboardVisible, setIsDashboardVisible] = useState(true);
-  const [tableHeaders, setTableHeaders] = useState(["Client Name", "Phone", "Interested In", "Note", "Scheduled Date"]);
-  const [tableKeys, setTableKeys] = useState(["ClientName", "Phone", "InterestedIn", "Note", "ScheduledDate"]);
+  const [tableHeaders, setTableHeaders] = useState(["Client Name", "Phone", "Interested In", "Note", "Scheduled Date", "Status"]);
+  const [tableKeys, setTableKeys] = useState(["ClientName", "Phone", "InterestedIn", "Note", "ScheduledDate", "Status"]);
   const [createAction, setCreateAction] = useState('');
 
   // Calculate open and closed counts for follow-ups and visits
@@ -165,8 +165,8 @@ const Dashboard = () => {
 
         <h2>Follow Ups</h2>
         <DataTable
-          headers={["Client Name", "Phone", "Interested In", "Note", 'Broker ID', 'Scheduled Date', 'Status']}
-          keys={["ClientName", "Phone", "InterestedIn", "Note", "BrokerID", "ScheduledDate", "Status"]}
+                headers={['Client Name', 'Phone', 'Interested In', 'Note', 'Broker ID', 'Scheduled Date', 'Status']} 
+                keys={['ClientName', 'Phone', 'InterestedIn', 'Note', 'BrokerID', 'ScheduledDate', 'Status']}
           data={followUps.slice(-5)}
           createAction={'updateFollowup'}
           setData={setFollowUps}
@@ -174,8 +174,8 @@ const Dashboard = () => {
 
         <h2>Visits</h2>
         <DataTable
-          headers={["Client Name", "Phone", "Interested In", 'Note', 'Broker ID', 'Scheduled Date', 'Status']}
-          keys={["ClientName", "Phone", "InterestedIn", 'Note', 'BrokerID', 'ScheduledDate', 'Status']}
+                headers={['Client Name', 'Phone', 'Interested In', 'Note', 'Broker ID', 'Scheduled Date', 'Status']} 
+                keys={['ClientName', 'Phone', 'InterestedIn', 'Note', 'BrokerID', 'ScheduledDate', 'Status']}
           data={visits.slice(-5)}
           createAction={'updateVisit'}
           setData={setVisits}
