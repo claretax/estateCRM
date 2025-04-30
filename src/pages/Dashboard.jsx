@@ -26,7 +26,7 @@ const Dashboard = () => {
   const closedVisits = visits.filter((v) => v.Status === "Closed").length;
   const totalVisits = visits.length;
   const recommendedVisits = visits.filter(
-    (f) => new Date(f.ScheduledDate) <= today
+    (f) => new Date(f.ScheduledDate) <= today && f.Status !=="Closed"
   ).length;
 
   const handleCardClick = (type) => {
