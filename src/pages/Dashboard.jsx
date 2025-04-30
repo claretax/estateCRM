@@ -40,7 +40,7 @@ const Dashboard = () => {
       setCreateAction('updateFollowup')
     } else if (type === "recommendedFollowUps") {
       setSelectedData(
-        followUps.filter((f) => new Date(f.ScheduledDate) <= today)
+        followUps.filter((f) => new Date(f.ScheduledDate) <= today && f.Status !== 'Closed')
       );
       setCreateAction('updateFollowup')
     } else if(type === 'totalFollowUps'){
