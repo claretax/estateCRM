@@ -114,6 +114,7 @@ const DataTable = ({ headers, keys, data, createAction, setData }) => {
             <table className={styles.table}>
                 <thead>
                     <tr>
+                        {/* <th style={{width:"10px"}}> S. No.</th> */}
                         {headers.map((header, index) => (
                             <th key={index}>{header}</th>
                         ))}
@@ -123,6 +124,7 @@ const DataTable = ({ headers, keys, data, createAction, setData }) => {
                 <tbody>
                     {data.map((row, index) => (
                         <tr key={index}>
+                            {/* <td>{index+1}</td> */}
                             {keys.map((key, cellIndex) => (
                                 <td key={cellIndex} onDoubleClick={() => handleEditClick(index)}>
                                     {row[key]}
