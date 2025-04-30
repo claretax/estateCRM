@@ -18,7 +18,7 @@ const Dashboard = () => {
   const openFollowUps = followUps.filter((f) => f.Status === "Open").length;
   const closedFollowUps = followUps.filter((f) => f.Status === "Closed").length;
   const recommendedFollowups = followUps.filter(
-    (f) => new Date(f.ScheduledDate) <= today
+    (f) => new Date(f.ScheduledDate) <= today && f.Status !=="Closed"
   ).length;
   const totalFollowUps = followUps.length;
 
